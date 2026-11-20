@@ -354,6 +354,8 @@ public class MainController {
 
         try {
             LyricsWriter.writeLyrics(currentMp3.getAbsolutePath(), chosenFile.getAbsolutePath(), text);
+            currentMp3 = chosenFile;
+            mp3Label.setText(chosenFile.getAbsolutePath());
             statusLabel.setText(resources.getString("statusLabel.savedAs") + " " + chosenFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
