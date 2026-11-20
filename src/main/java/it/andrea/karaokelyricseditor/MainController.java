@@ -211,6 +211,10 @@ public class MainController {
                 timeLabel.setText("00:00");
             });
 
+            mediaPlayer.setOnEndOfMedia(() -> {
+                blockTyping = false;
+            });
+
             // Permetti di spostare lo slider
             progressSlider.setOnMousePressed(e -> sliderBeingDragged = true);
             progressSlider.setOnMouseReleased(e -> {
