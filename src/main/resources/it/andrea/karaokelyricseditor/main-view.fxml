@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.andrea.karaokelyricseditor.MainController">
+
+    <BorderPane xmlns="http://javafx.com/javafx"
+                xmlns:fx="http://javafx.com/fxml"
+                prefWidth="700"
+                AnchorPane.topAnchor="0.0"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0">
+
+		<top>
+		    <VBox spacing="0">
+		
+		        <!-- MENU FILE -->
+				<MenuBar>
+					<Menu text="%menu.file">
+				        <MenuItem text="%menu.file.open" onAction="#onLoadMp3">
+				        	<graphic>
+				                <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+					                <image>
+						                <Image url="/icons/open.png"/>
+						            </image>
+					            </ImageView>
+				            </graphic>
+			            </MenuItem>
+			            
+			            <MenuItem text="%menu.file.save" onAction="#onSave" fx:id="mnuSave">
+				        	<graphic>
+				                <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+					                <image>
+						                <Image url="/icons/save.png"/>
+						            </image>
+					            </ImageView>
+				            </graphic>
+			            </MenuItem>
+			            
+			            <MenuItem text="%menu.file.saveAs" onAction="#onSaveAs" fx:id="mnuSaveAs">
+				        	<graphic>
+				                <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+					                <image>
+						                <Image url="/icons/saveAs.png"/>
+						            </image>
+					            </ImageView>
+				            </graphic>
+			            </MenuItem>
+				    </Menu>
+				    
+				    <!-- MENU EDIT -->
+				    <Menu text="%menu.edit">
+				        <MenuItem text="%menu.edit.removeTimestamps" onAction="#onRemoveAllTimestamps" fx:id="mnuRemoveTimestamps">
+				        	<graphic>
+				                <ImageView fitHeight="16" fitWidth="16" preserveRatio="true"/>
+				            </graphic>
+			            </MenuItem>
+			            
+			            <MenuItem text="%menu.edit.lyricsUppercase" onAction="#onLyricsUppercase" fx:id="mnuLyricsUppercase">
+				        	<graphic>
+				                <ImageView fitHeight="16" fitWidth="16" preserveRatio="true"/>
+				            </graphic>
+			            </MenuItem>
+				    </Menu>
+				    
+				    <!-- MENU LANGUAGE -->
+				    <Menu text="%menu.language">
+				        <MenuItem text="%menu.language.italian" onAction="#onLanguageClick" id="it">
+				            <graphic>
+				                <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+				                    <image>
+				                        <Image url="/icons/it.png"/>
+				                    </image>
+				                </ImageView>
+				            </graphic>
+				        </MenuItem>
+				
+				        <MenuItem text="%menu.language.english" onAction="#onLanguageClick" id="en">
+				            <graphic>
+				                <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+				                    <image>
+				                        <Image url="/icons/en.png"/>
+				                    </image>
+				                </ImageView>
+				            </graphic>
+				        </MenuItem>
+				    </Menu>
+				</MenuBar>
+		
+		        <!-- TOOLBAR -->
+		        <ToolBar prefWidth="Infinity">
+		            <!-- Button Open MP3 -->
+					<Button text="%button.open" onAction="#onLoadMp3" contentDisplay="GRAPHIC_ONLY">
+					    <graphic>
+					        <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+					            <image>
+					                <Image url="/icons/open.png"/>
+					            </image>
+					        </ImageView>
+					    </graphic>
+					    <tooltip>
+        					<Tooltip text="%button.open"/>
+    					</tooltip>
+					</Button>
+					
+					<!-- Button Save -->
+					<Button text="%button.save" onAction="#onSave" contentDisplay="GRAPHIC_ONLY" fx:id="btnSave">
+					    <graphic>
+					        <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+					            <image>
+					                <Image url="/icons/save.png"/>
+					            </image>
+					        </ImageView>
+					    </graphic>
+					    <tooltip>
+        					<Tooltip text="%button.save"/>
+    					</tooltip>
+					</Button>
+					
+					<Button text="%button.saveAs" onAction="#onSaveAs" contentDisplay="GRAPHIC_ONLY" fx:id="btnSaveAs">
+					    <graphic>
+					        <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+					            <image>
+					                <Image url="/icons/saveAs.png"/>
+					            </image>
+					        </ImageView>
+					    </graphic>
+					    <tooltip>
+        					<Tooltip text="%button.saveAs"/>
+    					</tooltip>
+					</Button>
+
+		            <Separator orientation="VERTICAL"/>
+
+					<Label text="%fontSizeLabel" style="-fx-padding: 0 5 0 10;"/>
+					<ComboBox fx:id="fontSizeCombo" prefWidth="70"/>
+		            
+		            <Pane HBox.hgrow="ALWAYS"/> <!-- questo spinge tutto a sinistra -->
+		        </ToolBar>
+		        
+				<!-- LABEL DEL FILE MP3 -->
+				<Label fx:id="mp3Label"
+				       text="%mp3Label.noFile"
+				       style="-fx-font-size: 11px; -fx-text-fill: #555;"
+				       maxWidth="Infinity">
+				    <padding>
+				        <Insets top="3" right="10" bottom="5" left="10"/>
+				    </padding>
+				</Label>
+
+		    </VBox>
+		</top>
+
+		<center>
+		    <VBox spacing="8" alignment="CENTER">
+		        <TextArea fx:id="lyricsArea" wrapText="true" VBox.vgrow="ALWAYS"/>
+		
+		        <!-- Pulsante Add Timestamp grande e ben visibile -->
+		        <Button fx:id="btnAddTimestamp"
+		                text="%button.addTimestamp"
+		                onAction="#onAddTimestamp"
+		                style="-fx-font-size: 16px; -fx-padding: 10 20;">
+		            <graphic>
+		                <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+		                    <image>
+		                        <Image url="/icons/timestamp_add.png"/>
+		                    </image>
+		                </ImageView>
+		            </graphic>
+		        </Button>
+		    </VBox>
+		</center>
+
+		<bottom>
+		    <BorderPane>
+		
+		        <!-- CONTROLLI AUDIO SOPRA -->
+		        <top>
+		            <HBox spacing="10" alignment="CENTER_LEFT">
+		                <padding>
+		                    <Insets top="10" right="10" bottom="10" left="10"/>
+		                </padding>
+		
+		                <Button text="▶ Play" onAction="#onPlay" fx:id="btnPlay"/>
+		                <Button text="■ Stop" onAction="#onStop" fx:id="btnStop"/>
+		                <Slider fx:id="progressSlider" prefWidth="300"/>
+		                <Label fx:id="timeLabel" text="00:00"/>
+		                
+		                <Label text="%playbackSpeedLabel" style="-fx-padding: 0 5 0 15;"/>
+		                <Slider fx:id="speedSlider"
+					        min="1.0"
+					        max="2.0"
+					        value="1.0"
+					        blockIncrement="0.25"
+					        majorTickUnit="0.25"
+					        minorTickCount="0"
+					        snapToTicks="true"
+					        prefWidth="120"
+					        showTickMarks="true"
+					        showTickLabels="true"/>
+		
+		                <Pane HBox.hgrow="ALWAYS"/>
+		            </HBox>
+		        </top>
+		
+		        <!-- STATUS BAR INCOLLATA IN BASSO -->
+		        <bottom>
+		            <BorderPane fx:id="statusBar"
+		                        style="-fx-background-color: #f4f4f4;
+		                               -fx-border-color: #cccccc;
+		                               -fx-border-width: 1 0 0 0;
+		                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.2, 0, -2);">
+		                               
+		                <left>
+		                    <Label fx:id="statusLabel"
+		                           style="-fx-padding: 6 10 6 10; -fx-text-fill: #333;"
+		                           text=""/>
+		                </left>
+		            </BorderPane>
+		        </bottom>
+		
+		    </BorderPane>
+		</bottom>
+
+    </BorderPane>
+</AnchorPane>
