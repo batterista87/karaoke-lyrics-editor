@@ -286,21 +286,34 @@ public class MainController {
 
         lyricsArea.setText(sb.toString());
         
-        // Trova inizio della riga successiva
+        // Trova la prima riga successiva non vuota
         int nextLineStart = sb.indexOf("\n", lineStart);
-
         if (nextLineStart == -1) {
-            // Non c'è una riga successiva → vai alla fine del testo
             lyricsArea.positionCaret(sb.length());
         } else {
-            // Trova la fine della riga successiva
-            int nextLineEnd = sb.indexOf("\n", nextLineStart + 1);
-            if (nextLineEnd == -1) {
-                nextLineEnd = sb.length();
+            boolean caretPositioned = false;
+            while (nextLineStart < sb.length()) {
+                nextLineStart++;
+                int nextLineEnd = sb.indexOf("\n", nextLineStart);
+                if (nextLineEnd == -1) {
+                    nextLineEnd = sb.length();
+                }
+
+                if (!sb.substring(nextLineStart, nextLineEnd).isBlank()) {
+                    lyricsArea.positionCaret(nextLineEnd);
+                    caretPositioned = true;
+                    break;
+                }
+
+                if (nextLineEnd == sb.length()) {
+                    break;
+                }
+                nextLineStart = nextLineEnd;
             }
 
-            // Posiziona il cursore alla FINE della riga successiva
-            lyricsArea.positionCaret(nextLineEnd);
+            if (!caretPositioned) {
+                lyricsArea.positionCaret(sb.length());
+            }
         }
 
         lyricsArea.requestFocus();
