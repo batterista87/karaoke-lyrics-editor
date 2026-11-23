@@ -422,6 +422,14 @@ public class MainController {
      */
     private void switchLanguage(String lang) {
         try {
+            if (mediaPlayer != null) {
+                onStop();
+                mediaPlayer.dispose();
+                mediaPlayer = null;
+            }
+            blockTyping = false;
+            sliderBeingDragged = false;
+
         	appConfig.set("language", lang);
         	
             Locale locale = Locale.of(lang);
